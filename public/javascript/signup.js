@@ -1,4 +1,4 @@
-async function signupFormHandler(event) {
+const signupFormHandler = async (event) => {
     event.preventDefault();
 
     // getting data from the form
