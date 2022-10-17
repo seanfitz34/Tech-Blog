@@ -3,7 +3,7 @@ const { User, Post, Comment } = require("../../models");
 const withAuth = require("../../utils/auth");
 
 // GET /api/users
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   // access our user model and run .findAll() method -- similar to SELECT * FROM users;
   User.findAll({
     attributes: { exclude: ["[password"] },
@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
 });
 
 // GET a single user by id
-router.get("/:id", (req, res) => {
+router.get("/:id", async(req, res) => {
   User.findOne({
     attributes: { exclude: ["password"] },
     where: {
@@ -101,7 +101,7 @@ router.post("/login", async (req, res) => {
 });
 
 // LOG OUT
-router.post("/logout", withAuth, (req, res) => {
+router.post("/logout",async (req, res) => {
   if (req.session.logged_in) {
     req.session.destroy(() => {
       res.status(204).end();
@@ -112,7 +112,7 @@ router.post("/logout", withAuth, (req, res) => {
 });
 
 // UPDATE a user
-router.put("/:id", withAuth, (req, res) => {
+router.put("/:id", (req, res) => {
   User.update(req.body, {
     individualHooks: true,
     where: {
@@ -133,7 +133,7 @@ router.put("/:id", withAuth, (req, res) => {
 });
 
 // DELETE a user
-router.delete("/:id", withAuth, (req, res) => {
+router.delete("/:id", async (req, res) => {
   User.destroy({
     where: {
       id: req.params.id,

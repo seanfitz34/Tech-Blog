@@ -4,7 +4,7 @@ const withAuth = require('../utils/auth');
 const sequelize = require('../config/connection');
 
 // dashboard displaying posts created by logged in users 
-router.get('/', withAuth, (req, res) => {
+router.get('/', withAuth, async(req, res) => {
     Post.findAll({
       where: {
         // use the ID from the session
@@ -43,7 +43,7 @@ router.get('/', withAuth, (req, res) => {
   });
 
 // rendering edit page
-router.get('/edit/:id', withAuth, (req, res) => {
+router.get('/edit/:id', withAuth, async(req, res) => {
     Post.findOne({
     where: {
     id: req.params.id

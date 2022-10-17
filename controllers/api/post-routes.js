@@ -4,7 +4,7 @@ const withAuth = require("../../utils/auth");
 const sequelize = require("../../config/connection");
 
 // GET all posts
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   Post.findAll({
     // Query configuration
     attributes: ["id", "post_text", "title", "created_at"],
@@ -35,7 +35,7 @@ router.get("/", (req, res) => {
 });
 
 // GET a single post by id
-router.get("/:id", (req, res) => {
+router.get("/:id",async (req, res) => {
   Post.findOne({
     where: {
       id: req.params.id,

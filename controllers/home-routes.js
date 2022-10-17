@@ -4,7 +4,7 @@ const router = require('express').Router();
 const sequelize = require('../config/connection');
 
 // rendering all posts to homepage
-router.get('/', (req, res) => {
+router.get('/',async (req, res) => {
     console.log(req.session);
 
     Post.findAll({
@@ -41,7 +41,7 @@ router.get('/', (req, res) => {
     });
 
 // redirecting users to homepage once they log in
-router.get('/login', (req, res) => {
+router.get('/login',async (req, res) => {
     if(req.session.loggedIn) {
         res.redirect('/');
         return; 
@@ -55,7 +55,7 @@ router.get('/signup', (req, res) => {
 });
 
 //rendering one post to the single-post page
-router.get('/post/:id', (req, res) => {
+router.get('/post/:id', async(req, res) => {
     Post.findOne({
       where: {
         id: req.params.id
